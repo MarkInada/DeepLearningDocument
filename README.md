@@ -1,2 +1,4 @@
 # DeepLearningDocument
-About Deep Learning
+Document for Deep Learning 
+
+https://markinada.github.io/DeepLearningDocument/
