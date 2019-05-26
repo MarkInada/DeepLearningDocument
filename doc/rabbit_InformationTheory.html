@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>情報理論 &mdash; DeepLearningDocument 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="確率・統計" href="rabbit_ProbabilityStatistics.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepLearningDocument
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="discription.html">本ページの説明と概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rabbit_LinearAlgebra.html">線形代数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rabbit_ProbabilityStatistics.html">確率・統計</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">情報理論</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">目標：情報理論を理解する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">◼︎自己情報量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">◼︎情報量を理解する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">◼︎自己情報量の例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">◼︎シャノンエントロピー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kullback-leibler-divergence-klkl">◼︎Kullback-Leibler divergence ( KLダイバージェンス、KL情報量 )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kl">◼︎KLダイバージェンスを使ってみよう！</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">◼︎交差エントロピー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">◼︎交差エントロピーを使ってみよう！</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">◼︎補足</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">◼︎引用, 参考資料</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepLearningDocument</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>情報理論</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/rabbit_InformationTheory.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>情報理論<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>目標：情報理論を理解する<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2>◼︎自己情報量<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>確率 P(&gt;0)
+で起こる事象を観測したときに得られる自己情報量を以下のように定義する。（情報量を考える際に対数の底は
+2 を用いることが多い。底を 2
+で考えるとき，情報量の単位は「1bit」または「1シャノン」です。）</p>
+<div class="math notranslate nohighlight">
+\[I(x) = - \log _2 (P(x)) = \log _2 (W(x))\]</div>
+<p>普段コンピュータで表す2進数のbitは底が2の対数であらわす。以下の値のことをAの自己情報量と言う。</p>
+<div class="math notranslate nohighlight">
+\[\log _2 A\]</div>
+<p>掛け算で表される事象の量を足し算で表せるようにするために対数を用いて以下のように表す。</p>
+<div class="math notranslate nohighlight">
+\[A = 2^a\]</div>
+<div class="math notranslate nohighlight">
+\[B = 2^b\]</div>
+<p>という値がある時、A × B は、</p>
+<div class="math notranslate nohighlight">
+\[A × B = 2^a × 2^b = 2^{a+b}\]</div>
+<p>と表される。これを底が2の対数に当てはめると、</p>
+<div class="math notranslate nohighlight">
+\[\log _2 (A × B) = a + b = \log _2 A + \log _2 B\]</div>
+<p>というように元々積を求める計算だった計算が和を求める計算になった。</p>
+<p>また、参考までに逆数は以下のように計算できるので、</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{A} = \frac{1}{2^a} = 2^{-a}\]</div>
+<p>以下のように逆数の対数の場合はマイナスの対数と一致する。</p>
+<div class="math notranslate nohighlight">
+\[\log \frac{1}{A} = -\log A\]</div>
+<p>つまり、自己情報量で使われるW(x)はP(x)の逆数になっている。</p>
+<div class="math notranslate nohighlight">
+\[W(x) = \frac{1}{P(x)}\]</div>
+</div>
+<div class="section" id="id4">
+<h2>◼︎情報量を理解する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>金魚が100匹入っている水槽に新たに1匹の金魚を入れても多くの人は金魚が増えたことに気づかない。しかし、元々1匹だけ入っている水槽に新たに金魚を入れると多くの人は金魚が増えたことに気づく。これは後者の方が情報量が大きいから。これを数式であらわすと以下のようになる。</p>
+<div class="math notranslate nohighlight">
+\[\frac{ΔW(新たに増えた事象の数)}{W(元々の事象の数)} = ΔI(増えた情報)\]</div>
+<p>100匹の水槽に1匹入れる場合に増える情報は0.01。1匹の水槽に1匹入れる場合は1になる。</p>
+<p>上記の式を変換すると、Δを微小な値dとして以下のようにも表せる。</p>
+<div class="math notranslate nohighlight">
+\[dI = \frac{dW}{W}\]</div>
+<p>これを積分すると量になるので以下のように計算できる。</p>
+<div class="math notranslate nohighlight">
+\[\int dI = \int \frac{dW}{W}\]</div>
+<div class="math notranslate nohighlight">
+\[I = \int \frac{1}{W}dW\]</div>
+<div class="math notranslate nohighlight">
+\[= \log W\]</div>
+</div>
+<div class="section" id="id5">
+<h2>◼︎自己情報量の例<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>「（公平な）コインを投げて表が出た」ことを観測したときに得る情報量は</p>
+<div class="math notranslate nohighlight">
+\[\log _2 \frac{1}{2} = 1 bit\]</div>
+<p>「友人が，確率 0.000002
+で三億円当たるような宝くじで三億円当てた」ことを観測したときに得る情報量は</p>
+<div class="math notranslate nohighlight">
+\[\log _2 0.00002 := 19.9 bit\]</div>
+<p>コインで表が出ることの情報量1bitに対し、宝くじが当たる情報量はとても大きい数字になっていることがわかる。</p>
+</div>
+<div class="section" id="id6">
+<h2>◼︎シャノンエントロピー<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>・エントロピーは複雑さの意味</p>
+<p>・自己情報量の期待値（平均値）・・・以下の式で説明すると、Iの平均をとったもの。</p>
+<div class="math notranslate nohighlight">
+\[H(x) = E(I(x))\]</div>
+<div class="math notranslate nohighlight">
+\[= -E(\log P(x))\]</div>
+<div class="math notranslate nohighlight">
+\[= -\sum_{k=1}^{n} (P(x_k)\log P(x_k))\]</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">entropy</span>
+
+<span class="c1"># サイコロのシャノンエントロピーを求めてみる</span>
+<span class="n">test_entropy</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">test_entropy</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">/</span><span class="mf">6.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;求めたシャノンエントロピー: &quot;</span><span class="p">,</span> <span class="n">test_entropy</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">dice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ライブラリで確認: &quot;</span><span class="p">,</span> <span class="n">entropy</span><span class="p">(</span><span class="n">dice</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">求めたシャノンエントロピー</span><span class="p">:</span>  <span class="mf">1.7917594692280547</span>
+<span class="n">ライブラリで確認</span><span class="p">:</span>  <span class="mf">1.791759469228055</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># いかさまサイコロの場合、普通のサイコロの方がエントロピーが低い（複雑さが低い）</span>
+
+<span class="n">bad_dice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;イカサマサイコロのエントロピー: &quot;</span><span class="p">,</span> <span class="n">entropy</span><span class="p">(</span><span class="n">bad_dice</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">イカサマサイコロのエントロピー</span><span class="p">:</span>  <span class="mf">1.55166214857287</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kullback-leibler-divergence-klkl">
+<h2>◼︎Kullback-Leibler divergence ( KLダイバージェンス、KL情報量 )<a class="headerlink" href="#kullback-leibler-divergence-klkl" title="Permalink to this headline">¶</a></h2>
+<p>・同じ事象・確率変数における異なる確率分布P, Qの違いを表す</p>
+<div class="math notranslate nohighlight">
+\[D_{KL}(P||Q) = \sum_{i} P(x_i)\log \frac{P(x_i)}{Q(x_i)}\]</div>
+<div class="math notranslate nohighlight">
+\[= \sum_{i} P(x_i) (\log P(x_i) - \log Q(x_i))\]</div>
+<p>PとQのどちらで平均をとればいいか？前提として先に古い情報から事象Qを予想しているというイメージがある。例えば、あるニュースの注目度をQと予想していたとする。しかし、アンケート結果で実際にはPであることが薄々わかってきたとする。この場合、Pから予想していたQを引くことでどれだけニュースの注目度が減っていくのかがわかる。元々Qという予想に対してPが変わっていくことの変化量がKLダイバージェンス。従ってPについて考えたいので、定義はPで平均をとる式になっていることがわかる。</p>
+<p>例) 芸能人のピエール瀧が薬物を使ったニュースの注目度ln
+Qを”１０”と予想した。しかし、SNSの調査結果から音楽家でもある芸能人が薬物を使う注目度ln
+Pは１ヶ月後には”5”, ３ヶ月後には”3”
+しかないことがわかってきた。この場合、KLダイバージェンスは１ヶ月後より３ヶ月後の方が大きい(PとQとの違いが大きい)ことがわかってくる。</p>
+</div>
+<div class="section" id="kl">
+<h2>◼︎KLダイバージェンスを使ってみよう！<a class="headerlink" href="#kl" title="Permalink to this headline">¶</a></h2>
+<p>ピエール瀧氏の薬物ニュースを100年に一度の大ニュースだと予測したとする。しかし、SNSの調査で半年後には2年に一度は音楽やってる人は薬物使うよね、という印象になった瀧事件のKLダイバージェンスは、およそ0.58。対して、ベッキー氏とゲス川谷氏の不倫も1000年に一度の大ニュースだと予測したとする。これは予想に従って半年後も100年以上に一度のニュースだということがSNSの調査でわかったとする。このKLダイバージェンスは、およそ0.007。予想と現実の差が激しい方がKLダイバージェンスが大きいことが確認できる。</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">entropy</span>
+
+<span class="c1"># ピエール瀧の薬物ニュース</span>
+<span class="n">predict_taki</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">])</span>
+<span class="n">actual_taki</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># ベッキーとゲス川谷の不倫</span>
+<span class="n">predict_bekey</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">])</span>
+<span class="n">actual_bekey</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">110</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">120</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">130</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">140</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ピエール瀧の薬物ニュース: &quot;</span><span class="p">,</span> <span class="n">entropy</span><span class="p">(</span><span class="n">predict_taki</span><span class="p">,</span> <span class="n">actual_taki</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ベッキーとゲス川谷の不倫: &quot;</span><span class="p">,</span> <span class="n">entropy</span><span class="p">(</span><span class="n">predict_bekey</span><span class="p">,</span> <span class="n">actual_bekey</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ピエール瀧の薬物ニュース</span><span class="p">:</span>  <span class="mf">0.5863005922044968</span>
+<span class="n">ベッキーとゲス川谷の不倫</span><span class="p">:</span>  <span class="mf">0.007097628155427107</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>◼︎交差エントロピー<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>・KLダイバージェンスの一部を取り出したもの</p>
+<p>上記の通り、KLダイバージェンスは事象Pについての平均をとっていた。そこで以下のように、定義式内の事象Pの情報量の平均をとるようになっている箇所は、ただの情報量を表しているにすぎない。</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i}　P(x_i) \log P(x_i)\]</div>
+<p>そこで、この情報量を省き、Qにのみ着目した定義式を交差エントロピーと言い、Qについての自己情報量をPの分布で平均した式になる。Qに関することをPで平均をとっているので交差と言う。</p>
+<div class="math notranslate nohighlight">
+\[交差エントロピーH(P, Q) = - \sum_{i} P(x_i) \log Q(x_i)\]</div>
+<p>少ない情報しか送れない、とてもトラフィックがNarrowな無線通信を行う状況を想像する。そんな時、Qという小さな情報しか送れないことを予想する。Qは天気の情報、時間の情報、気温の情報・・など不要な情報か必要な情報かをかなり精査した情報になる。この情報Qは、実際に送りたいと思っている情報Pとはかけ離れている。事前に考えていた情報Qが実際に送らないといけないPと、どれだけ噛み合っていたかを考えるのが交差エントロピー。PとQに差がなければ差がないほど予想と現実にギャップが少なく、交差エントロピーが小さくなる。</p>
+</div>
+<div class="section" id="id8">
+<h2>◼︎交差エントロピーを使ってみよう！<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>いかさまコインを使ったベルヌーイ分布に従う確率分布 P(x),
+Q(x)について考える。ただし、検証者はイカサマと知らないとする。コインAの表が出る確率μは0.3、コインBは0.2、コインCは0.1、とする。</p>
+<p>まず、検証者が普通のコインでコイントスする場合は以下のように予想Pのμ=0.5と現実Qのμ=0.5となる。</p>
+<div class="math notranslate nohighlight">
+\[普通のコインの交差エントロピーH(P, Q) = - \sum_{i} P(x_i) \log Q(x_i)\]</div>
+<div class="math notranslate nohighlight">
+\[= - ((0.5 × \log 0.5) + (0.5 × \log 0.5))\]</div>
+<div class="math notranslate nohighlight">
+\[:= 0.69\]</div>
+<p>次に、検証者がいかさまコインAでコイントスする場合は以下のように予想Pのμ=0.5と現実Qのμ=0.7となる。</p>
+<div class="math notranslate nohighlight">
+\[コインAの交差エントロピーH(P, Q) = - \sum_{i} P(x_i) \log Q(x_i)\]</div>
+<div class="math notranslate nohighlight">
+\[= - ((0.7 × \log 0.5) + (0.3 × \log 0.5))\]</div>
+<div class="math notranslate nohighlight">
+\[:= 0.78\]</div>
+<p>この通り、推定が外れるほど交差エントロピーは大きくなります。</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#　交差エントロピーの検証</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">entropy</span>
+
+<span class="n">coin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">coinA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+<span class="n">coinB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="n">coinC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">])</span>
+
+<span class="n">coin_entropy</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">coinA_entropy</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">coinB_entropy</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">coinC_entropy</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">coin_entropy</span> <span class="o">+=</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">coinA_entropy</span> <span class="o">+=</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">coinA</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">coinB_entropy</span> <span class="o">+=</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">coinB</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">coinC_entropy</span> <span class="o">+=</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">coinC</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;普通のコイン: &quot;</span><span class="p">,</span> <span class="n">coin_entropy</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;普通のコインとコインAの交差エントロピー: &quot;</span><span class="p">,</span> <span class="n">coinA_entropy</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;普通のコインとコインBの交差エントロピー: &quot;</span><span class="p">,</span> <span class="n">coinB_entropy</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;普通のコインとコインCの交差エントロピー: &quot;</span><span class="p">,</span> <span class="n">coinC_entropy</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">普通のコイン</span><span class="p">:</span>  <span class="mf">0.6931471805599453</span>
+<span class="n">普通のコインとコインAの交差エントロピー</span><span class="p">:</span>  <span class="mf">0.7803238741323343</span>
+<span class="n">普通のコインとコインBの交差エントロピー</span><span class="p">:</span>  <span class="mf">0.916290731874155</span>
+<span class="n">普通のコインとコインCの交差エントロピー</span><span class="p">:</span>  <span class="mf">1.203972804325936</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>◼︎補足<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>exp: 指数関数 ex のこと</p>
+<p>ln: 自然対数 logex のこと</p>
+<p>lg: 2を底とする対数 log2x のこと（を表す場合が多い</p>
+</div>
+<div class="section" id="id10">
+<h2>◼︎引用, 参考資料<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>・ラビットチャレンジ - 応用数学講座</p>
+<p><a class="reference external" href="http://ai999.careers/rabbit/">http://ai999.careers/rabbit/</a></p>
+<p>・東京大学グローバル消費インテリジェンス寄付講座 - Data Science Online
+Course</p>
+<p><a class="reference external" href="https://gci.t.u-tokyo.ac.jp/">https://gci.t.u-tokyo.ac.jp/</a></p>
+<p>・Qiita - 正規分布間のKLダイバージェンス</p>
+<p><a class="reference external" href="https://qiita.com/ceptree/items/9a473b5163d5655420e8">https://qiita.com/ceptree/items/9a473b5163d5655420e8</a></p>
+<p>・Qiita - 生成モデルで語られる Kullback-Leibler を理解する</p>
+<p><a class="reference external" href="https://qiita.com/TomokIshii/items/b9a11c19bd5c36ad0287">https://qiita.com/TomokIshii/items/b9a11c19bd5c36ad0287</a></p>
+<p>・Qiita - エントロピー・KL divergenceの復習</p>
+<p><a class="reference external" href="https://qiita.com/kento1109/items/10026d96f2634ba36362">https://qiita.com/kento1109/items/10026d96f2634ba36362</a></p>
+<p>・scipy.org</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="rabbit_ProbabilityStatistics.html" class="btn btn-neutral float-left" title="確率・統計" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Mark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

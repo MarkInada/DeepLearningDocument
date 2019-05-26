@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>確率・統計 &mdash; DeepLearningDocument 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="情報理論" href="rabbit_InformationTheory.html" />
+    <link rel="prev" title="線形代数" href="rabbit_LinearAlgebra.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepLearningDocument
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="discription.html">本ページの説明と概要</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rabbit_LinearAlgebra.html">線形代数</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">確率・統計</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">目標：確率の基礎を理解し、統計分布を行う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">◼︎頻度確率 (客観確率)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">◼︎ベイズ確率 (主観確率)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">◼︎同時確率</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">◼︎条件付き確率</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">◼︎ベイズ則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">◼︎確率変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">◼︎確率分布</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">◼︎期待値</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">◼︎分散（離散）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">◼︎標準偏差</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">◼︎実際に分散と標準偏差を求めてみよう</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">◼︎共分散</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">◼︎相関係数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">◼︎共分散と相関係数を使って統計分析してみよう</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">◼︎ベルヌーイ分布</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">◼︎マルチヌーイ分布（カテゴリカル分布）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id19">◼︎二項分布</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">◼︎正規分布（ガウス分布）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">◼︎正規分布のイメージ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">◼︎補足</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id23">確率密度関数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id24">◼︎引用, 参考資料</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rabbit_InformationTheory.html">情報理論</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepLearningDocument</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>確率・統計</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/rabbit_ProbabilityStatistics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>確率・統計<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>目標：確率の基礎を理解し、統計分布を行う<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2>◼︎頻度確率 (客観確率)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>・発生する頻度（１００本のうち１本が当たる確率は1%）</p>
+<p>実験などの検証で客観的にわかる事実</p>
+</div>
+<div class="section" id="id4">
+<h2>◼︎ベイズ確率 (主観確率)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>・信念の度合い（１０％の確率で脳梗塞という診断）</p>
+<p>自分の思っている思いの強さ</p>
+</div>
+<div class="section" id="id5">
+<h2>◼︎同時確率<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>お互いに因果関係のない事象X = xと事象Y = yが同時におこる確率</p>
+<div class="math notranslate nohighlight">
+\[P(X = x, Y = y)\]</div>
+<p>はこれらの積で表されれる</p>
+<div class="math notranslate nohighlight">
+\[P(X = x)P(Y = y)\]</div>
+<p>例） 2回に1回おこる事象Xと3回に1回おこる事象Yは 1/2 * 1/3 で 1/6となる</p>
+</div>
+<div class="section" id="id6">
+<h2>◼︎条件付き確率<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>事象Xの条件の時に事象Yになる確率</p>
+<div class="math notranslate nohighlight">
+\[P(Y = y|X = x) = \frac{P(Y=y, X=x)}{P(X = x)}\]</div>
+<p>例)
+事象X・・・雨が降る確率1/2、事象Y・・・雨が降ると事故がおこる確率1/3。この時、雨が降っている条件で事故がおこる確率は、</p>
+<p>1/3(事象Y) * 1/2(事象X) で 1/6(P(x,y)) を
+雨の確率1/2(事象X)で割った1/3が正解となる。</p>
+</div>
+<div class="section" id="id7">
+<h2>◼︎ベイズ則<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>ある町の子供たちは毎日1/4の確率で飴をもらう</p>
+<p>飴をもらうと1/2の確率で笑顔になる</p>
+<p>そもそも笑顔な子供は1/3の確率</p>
+<p>笑顔な子供が飴を持っている確率は？</p>
+<div class="math notranslate nohighlight">
+\[P(飴) = \frac{1}{4}\]</div>
+<div class="math notranslate nohighlight">
+\[P(笑顔|飴) = \frac{1}{2}\]</div>
+<div class="math notranslate nohighlight">
+\[P(笑顔) = \frac{1}{3}\]</div>
+<div class="math notranslate nohighlight">
+\[P(笑顔, 飴) = P(飴, 笑顔) = P(笑顔|飴)P(飴) = \frac{1}{8}\]</div>
+<p>求めるべき確率は、 笑顔な条件下で飴を持っている確率なので、</p>
+<div class="math notranslate nohighlight">
+\[P(飴|笑顔)\]</div>
+<p>前提：条件付き確率に条件後の事象確率をかけると順序に関わらず同時確率だけ残るので結果は同じとなる</p>
+<div class="math notranslate nohighlight">
+\[P(x|y)P(y) = P(y|x)P(x)\]</div>
+<p>この公式をつかって以下のように解く</p>
+<div class="math notranslate nohighlight">
+\[P(飴|笑顔)P(笑顔) = P(飴, 笑顔)\]</div>
+<div class="math notranslate nohighlight">
+\[P(飴|笑顔)× \frac{1}{3} = \frac{1}{8}\]</div>
+<div class="math notranslate nohighlight">
+\[P(飴|笑顔) = \frac{3}{8}\]</div>
+<p>つまり、ベイズの定理は以下の通り。</p>
+<div class="math notranslate nohighlight">
+\[P(B|A) = \frac{P(A|B)P(B)}{P(A)}\]</div>
+</div>
+<div class="section" id="id8">
+<h2>◼︎確率変数<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>事象そのものを指す数値</p>
+<p>例）裏を０表を１とする場合、表が４枚裏が０枚の時、確率変数は”４”</p>
+</div>
+<div class="section" id="id9">
+<h2>◼︎確率分布<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>事象の発生する確率の分布図　（離散的であれば表）</p>
+<p>例）表が４枚裏が０枚でた確率が1/16, 表が3枚裏が1枚でた確率が4/16
+…という風に事象によって確率は異なる。これらの確率をグラフや表に表したものが確率分布。</p>
+</div>
+<div class="section" id="id10">
+<h2>◼︎期待値<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>その確率分布における確率変数のありえそうな値（平均値）</p>
+<div class="math notranslate nohighlight">
+\[期待値E(f) = \sum_{k=1}^{n} P(X=x_k)f(X=x_k)\]</div>
+<div class="math notranslate nohighlight">
+\[P(x) = 確率\]</div>
+<div class="math notranslate nohighlight">
+\[f(x) = 確率変数\]</div>
+<p>この期待値E(f)は平均値と一致するので、</p>
+<div class="math notranslate nohighlight">
+\[期待値E(f) = 平均値 = \frac{\sum_{k=1}^{n}f(X=x_k)}{n}\]</div>
+</div>
+<div class="section" id="id11">
+<h2>◼︎分散（離散）<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>・データのちらばり具合</p>
+<p>例）年間毎日平均3km歩く、かつ分散が０の場合、365日毎日ぴったり3km歩いていることなる</p>
+<p>・データの各々の値が期待値（平均）からどれだけずれているのか平均したもの</p>
+<div class="math notranslate nohighlight">
+\[分散Var(f) =  \frac{1}{n}\sum_{k=1}^{n} (f_{(X=x_k)}-E_{(f)})^2\]</div>
+<div class="math notranslate nohighlight">
+\[E(f) = 期待値\]</div>
+<div class="math notranslate nohighlight">
+\[f(x) = 確率変数\]</div>
+<p>※この二乗は絶対値だと計算するときに正か負の判定がいるため、計算を早くするための二乗</p>
+<p>分散の計算は、「確率変数のとり得る値と期待値（平均値）の差の2乗」と「確率」との積を、全て足し合わせたものとなる、</p>
+<p>例）サイコロの分散は</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">サイコロの目</th>
+<th class="head">1</th>
+<th class="head">2</th>
+<th class="head">3</th>
+<th class="head">4</th>
+<th class="head">5</th>
+<th class="head">6</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>確率変数</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr class="row-odd"><td>確率</td>
+<td>1/6</td>
+<td>1/6</td>
+<td>1/6</td>
+<td>1/6</td>
+<td>1/6</td>
+<td>1/6</td>
+</tr>
+</tbody>
+</table>
+<div class="math notranslate nohighlight">
+\[分散Var(f) = \frac{1}{n}\sum_{k=1}^{n} (f_{(X=x_k)}-E_{(f)})^2\]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{1}{6}\sum_{k=1}^{n} (f_{(X=x_k)}-3.5)^2\]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{(1-3.5)^2}{6} + \frac{(2-3.5)^2}{6} + \frac{(3-3.5)^2}{6} + \frac{(4-3.5)^2}{6} + \frac{(5-3.5)^2}{6} + \frac{(6-3.5)^2}{6}\]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{35}{12}\]</div>
+<!-- 上記、期待値の式に当てはめると、
+
+$$ 期待値E(f) = \frac{\sum_{k=1}^{n}((f_{(x_k)}-E_{(f)})^2)}{n} $$
+
+これは”確率変数の二乗の平均 - 平均の二乗”で求められるので、
+
+$$ 分散Var(f) = E(f^2_{(X=x)})-(E_{(f)})^2 $$ --></div>
+<div class="section" id="id12">
+<h2>◼︎標準偏差<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>・標準偏差とは分散の単位の次元を実際のデータと同じにしたもの。分散は計算式で二乗しているため、実際のデータのばらつきがわからない。分散の平方根をとることで求められる。</p>
+<div class="math notranslate nohighlight">
+\[標準偏差 σ(f) = \sqrt{\frac{1}{n}\sum_{k=1}^{n} (f_{(X=x_k)}-E_{(f)})^2}\]</div>
+</div>
+<div class="section" id="id13">
+<h2>◼︎実際に分散と標準偏差を求めてみよう<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>以下の通り、分散と標準偏差が求められる。サイコロを振った目の数の平均は3.5となる。標準偏差はおよそ1.71なので、おおよそ振った目は1.79から5.21の間におさまることがわかる。</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">stochasticVariable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">probability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">average</span> <span class="o">=</span> <span class="n">stochasticVariable</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">var</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">var</span> <span class="o">+=</span> <span class="n">probability</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">((</span><span class="n">stochasticVariable</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">average</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;サイコロの平均: &quot;</span><span class="p">,</span> <span class="n">average</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;サイコロの分散: &quot;</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;サイコロの標準偏差: &quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">サイコロの平均</span><span class="p">:</span>  <span class="mf">3.5</span>
+<span class="n">サイコロの分散</span><span class="p">:</span>  <span class="mf">2.9166666666666665</span>
+<span class="n">サイコロの標準偏差</span><span class="p">:</span>  <span class="mf">1.707825127659933</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>◼︎共分散<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>・２つのデータ系列の傾向の違い</p>
+<p>正の値をとれば似た傾向。負の値をとれば逆の傾向。ゼロを取れば関連性に乏しい。</p>
+<p>例）　年収と名前の画数の共分散は0に近い。年収と年齢の共分散は正の値。年収と休暇の数の共分散は負の値。</p>
+<div class="math notranslate nohighlight">
+\[共分散Cov(f, g) = \frac{1}{n}\sum_{k=1}^{n}((f_{(X=x_k)}-E_{(f)})(g_{(Y=y_k)}-E_{(g)}))\]</div>
+<p>同じサイコロ二つの共分散の値は分散と同じ結果になる。</p>
+<div class="math notranslate nohighlight">
+\[共分散Cov(f, g) = \frac{1}{n}\sum_{k=1}^{n}((f_{(X=x_k)}-E_{(f)})(g_{(Y=y_k)}-E_{(g)}))\]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{1}{6}\sum_{k=1}^{n} ((f_{(X=x_k)}-3.5)(g_{(Y=y_k)}-3.5))\]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{(1-3.5)^2}{6} + \frac{(2-3.5)^2}{6} + \frac{(3-3.5)^2}{6} + \frac{(4-3.5)^2}{6} + \frac{(5-3.5)^2}{6} + \frac{(6-3.5)^2}{6}\]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{35}{12}\]</div>
+</div>
+<div class="section" id="id15">
+<h2>◼︎相関係数<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>共分散は各変数の大きさや単位に依存する。共分散”1”は、それがキロメートルなのかメートルなのかで意味が全く変わってくるので、複数の変数の関係性を比較しずらい。<strong>相関係数</strong>は、大きさや単位に依存せず、変数間の関係を数値化できる。共分散をそれぞれの変数の標準偏差で割ることで求まる。</p>
+<div class="math notranslate nohighlight">
+\[相関係数Corr(f, g) = \frac{\frac{1}{n}\sum_{k=1}^{n}((f_{(X=x_k)}-E_{(f)})(g_{(Y=y_k)}-E_{(g)}))}{\sqrt{\frac{1}{n}\sum_{k=1}^{n} (f_{(X=x_k)}-E_{(f)})^2}\sqrt{\frac{1}{n}\sum_{k=1}^{n} (f_{(Y=y_k)}-E_{(g)})^2}}\]</div>
+<p>相関係数は、-1から1までの値を取り、1に近ければ近いほど正の相関があるといい、-1に近ければ近いほど負の相関があるという。0に近い場合は、無相関である。全く同じ変数同士だと相関１になる。</p>
+</div>
+<div class="section" id="id16">
+<h2>◼︎共分散と相関係数を使って統計分析してみよう<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>乳がんのデータセットを読み込み、共分散と相関係数を求めてみる。細胞核の面積と半径には深い関係性があることがわかるが、面積と滑らかさはほとんど関係ないことがわかる、</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+
+<span class="n">cancerdata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cancer</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+
+<span class="n">radius_area_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean area&#39;</span><span class="p">],</span> <span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean radius&#39;</span><span class="p">])</span>
+<span class="n">radius_area_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean area&#39;</span><span class="p">],</span> <span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean radius&#39;</span><span class="p">])</span>
+
+<span class="n">area_smooth_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean area&#39;</span><span class="p">],</span> <span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean smoothness&#39;</span><span class="p">])</span>
+<span class="n">area_smooth_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean area&#39;</span><span class="p">],</span> <span class="n">cancerdata</span><span class="p">[</span><span class="s1">&#39;mean smoothness&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;細胞核の面積と半径の共分散:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">radius_area_cov</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;細胞核の面積と半径の相関係数:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">radius_area_corr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;細胞核の面積と滑らかさの共分散:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">area_smooth_cov</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;細胞核の面積と滑らかさの相関係数:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">area_smooth_corr</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">細胞核の面積と半径の共分散</span><span class="p">:</span>
+ <span class="p">[[</span><span class="mf">1.23843554e+05</span> <span class="mf">1.22448341e+03</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">1.22448341e+03</span> <span class="mf">1.24189201e+01</span><span class="p">]]</span>
+<span class="n">細胞核の面積と半径の相関係数</span><span class="p">:</span>
+ <span class="p">[[</span><span class="mf">1.</span>         <span class="mf">0.98735717</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.98735717</span> <span class="mf">1.</span>        <span class="p">]]</span>
+<span class="n">細胞核の面積と滑らかさの共分散</span><span class="p">:</span>
+ <span class="p">[[</span><span class="mf">1.23843554e+05</span> <span class="mf">8.76178126e-01</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">8.76178126e-01</span> <span class="mf">1.97799700e-04</span><span class="p">]]</span>
+<span class="n">細胞核の面積と滑らかさの相関係数</span><span class="p">:</span>
+ <span class="p">[[</span><span class="mf">1.</span>         <span class="mf">0.17702838</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.17702838</span> <span class="mf">1.</span>        <span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>◼︎ベルヌーイ分布<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>・コイントスのイメージ（二種類のみの結果しか得られない試行の結果を０と１で表した分布）</p>
+<p>・1である確率がpであるとき0である確率は1-p</p>
+<p>・事象Xとそのほかの事象というようになんでもベルヌーイ分布で表せる。現象はなんでも二つに分けられるので何にでも使える。</p>
+<div class="math notranslate nohighlight">
+\[P(X = 0) = 1-μ\]</div>
+<div class="math notranslate nohighlight">
+\[P(X = 1) = μ\]</div>
+<p>とすると、事象Xは0か１なので、</p>
+<div class="math notranslate nohighlight">
+\[P(X = x) = μ^x(1-μ)^{1-x}\]</div>
+<div class="math notranslate nohighlight">
+\[P(x|μ) = μ^x(1-μ)^{1-x}\]</div>
+<p>と表せる</p>
+</div>
+<div class="section" id="id18">
+<h2>◼︎マルチヌーイ分布（カテゴリカル分布）<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>・サイコロを転がすイメージ。（複数の結果が得られる試行の結果、たくさんの結果を持つ分布）</p>
+<p>・ベルヌーイの複数バーションのため、”マルチ”ヌーイ。カテゴリカル分布という名前の方が有名。</p>
+<p>・各面の確率が異なるイカサマサイコロでも使える。</p>
+<div class="math notranslate nohighlight">
+\[P(X = 1) = λ_1\]</div>
+<div class="math notranslate nohighlight">
+\[P(X = 2) = λ_2\]</div>
+<div class="math notranslate nohighlight">
+\[P(X = 3) = λ_3\]</div>
+<div class="math notranslate nohighlight">
+\[P(X = 4) = λ_4\]</div>
+<div class="math notranslate nohighlight">
+\[...\]</div>
+<div class="math notranslate nohighlight">
+\[λ_1 + λ_2 + λ_3 + λ_4 ... = 1\]</div>
+<div class="math notranslate nohighlight">
+\[P(X = x) = λ_1^{[x=1]}λ_2^{[x=2]}λ_3^{[x=3]} ...\]</div>
+<p>最後の式はxが1だった場合にλ1にする、という条件入りの意味のため、上記のP(X=?)=λ?となる表と同じ意味となる。</p>
+</div>
+<div class="section" id="id19">
+<h2>◼︎二項分布<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>・ベルヌーイ分布の多試行版</p>
+<p>・1番目に表がでて2番目に裏がでるなどの順番は関係なく、組み合わせにより、その回数分だけ表や裏がでる確率は増えるので、ベルヌーイの式にコンビネーションで組み合わせ数を掛け合わせた式になる　（n回投げるうち、x回だけ表が出るのはどういう確率は、というのが二項分布）</p>
+<div class="math notranslate nohighlight">
+\[P(x|λ, n) = _n C _x λ^x(1-λ)^{n-x}\]</div>
+<div class="math notranslate nohighlight">
+\[P(x|λ, n) = \frac{n!}{x!(n-x)!} λ^x(1-λ)^{n-x}\]</div>
+</div>
+<div class="section" id="id20">
+<h2>◼︎正規分布（ガウス分布）<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>・釣鐘型（ベル型）の連続分布</p>
+<div class="math notranslate nohighlight">
+\[N(x;μ,σ^2)= \sqrt{\frac{1}{2πσ^2}}exp(-\frac{1}{2σ^2}(x-μ)^2)\]</div>
+<p>N ・・・　確率密度関数</p>
+<p>μ ・・・　平均</p>
+<p>σ ・・・　分散</p>
+<p>補足：exp …
+2.71828182846　ネイピア数（自然対数の底）　微分しても形が変わらない。</p>
+<div class="math notranslate nohighlight">
+\[e^x = (e^x)'\]</div>
+<p>2πσ二乗と2σ二乗は積分値が１となるように補正するための定数。</p>
+</div>
+<div class="section" id="id21">
+<h2>◼︎正規分布のイメージ<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<p>ネイビア数を使って釣鐘型の形を実現しようとするとき、</p>
+<p>x=負の数の場合</p>
+<div class="math notranslate nohighlight">
+\[y=e^x\]</div>
+<p>x=正の数の場合</p>
+<div class="math notranslate nohighlight">
+\[y=e^{-x}\]</div>
+<p>とすれば以下のように実現できる。 これは絶対値を取ることで実現できる。</p>
+<div class="math notranslate nohighlight">
+\[y=e^{-|x|}\]</div>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="n">x</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**-</span><span class="n">x</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="rabbit_ProbabilityStatistics_files/rabbit_ProbabilityStatistics_5_0.png" src="rabbit_ProbabilityStatistics_files/rabbit_ProbabilityStatistics_5_0.png" />
+<p>絶対値をとると、上記のように条件によって計算を切り替えなければならない。</p>
+<div class="math notranslate nohighlight">
+\[e^{-x^2}\]</div>
+<p>とすることで釣鐘型を絶対値による条件分岐なしで実現する　（二乗なので滑らかな曲線となる）</p>
+<div class="code ipython3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="rabbit_ProbabilityStatistics_files/rabbit_ProbabilityStatistics_7_0.png" src="rabbit_ProbabilityStatistics_files/rabbit_ProbabilityStatistics_7_0.png" />
+</div>
+<div class="section" id="id22">
+<h2>◼︎補足<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id23">
+<h3>確率密度関数<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>連続型確率変数 X に対して，X が a 以上 b 以下となる確率が，積分を用いて</p>
+<div class="math notranslate nohighlight">
+\[P(a≤X≤b) = \int _a ^b f(x) dx\]</div>
+<p>で与えられるとき，f(x) を確率密度関数という。</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h2>◼︎引用, 参考資料<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>・ラビットチャレンジ - 応用数学講座</p>
+<p><a class="reference external" href="http://ai999.careers/rabbit/">http://ai999.careers/rabbit/</a></p>
+<p>・東京大学グローバル消費インテリジェンス寄付講座 - Data Science Online
+Course</p>
+<p><a class="reference external" href="https://gci.t.u-tokyo.ac.jp/">https://gci.t.u-tokyo.ac.jp/</a></p>
+<p>・統計WEB - 確率変数の分散</p>
+<p><a class="reference external" href="https://bellcurve.jp/statistics/course/6716.html">https://bellcurve.jp/statistics/course/6716.html</a></p>
+<p>・高校数学の美しい物語 - 確率密度関数の意味と具体例</p>
+<p><a class="reference external" href="https://mathtrain.jp/pmitsudo">https://mathtrain.jp/pmitsudo</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rabbit_InformationTheory.html" class="btn btn-neutral float-right" title="情報理論" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rabbit_LinearAlgebra.html" class="btn btn-neutral float-left" title="線形代数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Mark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
